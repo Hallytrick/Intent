@@ -19,8 +19,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class OnboardingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public OnboardingViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
