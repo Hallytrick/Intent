@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/wallet"
+        android:title="Wallet"
+        android:icon="@drawable/ic_baseline_account_balance_wallet"/>
+    <item
+        android:id="@+id/user_account"
+        android:title="Account"
+        android:icon="@drawable/ic_baseline_person"/>
+    <item
+        android:id="@+id/about_us"
+        android:title="About us"
+        android:icon="@drawable/ic_baseline_info"/>
+</menu>
