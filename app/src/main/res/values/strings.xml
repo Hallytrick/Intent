@@ -6,4 +6,9 @@
     <string name="okay">Got It</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about_text">
+        About us\nWe are an online retail shop located in Africa.\n
+        We offer quality products at affordable prices and deliver to you right to your doorstep.\n
+        We aim to provide you the best services.
+    </string>
 </resources>
