@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.intent.R;
+import com.example.intent.ui.category.ProductCategoryActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class DashBoardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -28,7 +30,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private CardView aboutUsCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,10 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
         initToolbar();
         initNavDrawer();
-        aboutUsCard = findViewById(R.id.about_us_card);
+        CardView aboutUsCard = findViewById(R.id.about_us_card);
+        CardView purchaseCard = findViewById(R.id.purchase_item_card);;
         aboutUsCard.setOnClickListener(this);
+        purchaseCard.setOnClickListener(this);
 
     }
 
@@ -87,11 +90,15 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.about_us_card:
                 showAboutDialog();
+                break;
+            case R.id.purchase_item_card:
+                startActivity(new Intent(this, ProductCategoryActivity.class));
                 break;
         }
     }
