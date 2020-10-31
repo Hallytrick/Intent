@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.intent.R;
 import com.example.intent.model.Product;
+import com.example.intent.ui.list.ProductActivity;
 import com.example.intent.ui.list.ProductViewModel;
 
 public class ProductDetailsFragment extends Fragment {
@@ -41,14 +43,24 @@ public class ProductDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ProductViewModel viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
-        Product product = viewModel.getProduct();
+        final Product product = viewModel.getProduct();
         TextView productTitle = view.findViewById(R.id.product_title);
         productTitle.setText(product.getTitle());
         TextView productPrice = view.findViewById(R.id.product_price);
         productPrice.setText(String.valueOf(product.getPrice()));
+        TextView productDescription= view.findViewById(R.id.product_description);
+        productDescription.setText(product.getDescription());
         ImageView productImage = view.findViewById(R.id.product_image);
         Glide.with(requireContext())
                 .load(product.getImage())
                 .into(productImage);
+
+        Button addToCart = view.findViewById(R.id.add_to_cart);
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ProductActivity)requireActivity()).addToCart(product, 1);
+            }
+        });
     }
 }
