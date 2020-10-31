@@ -19,19 +19,29 @@ import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder> {
 
-    private Context context;
-    private List<Product> products = new ArrayList<>();
+    private final Context context;
+    private static List<Product> products = new ArrayList<>();
 
     public ProductListAdapter(Context context, List<Product> products) {
         this.context = context;
         this.products = products;
     }
 
+    public OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(Product product);
+    }
+
     @NonNull
     @Override
     public ProductListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
-        return new ProductListViewHolder(view);
+        return new ProductListViewHolder(view, onItemClickListener);
     }
 
     @Override
@@ -52,11 +62,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     static class ProductListViewHolder extends RecyclerView.ViewHolder {
         TextView productTitle, productPrice;
         ImageView productImage;
-        public ProductListViewHolder(@NonNull View itemView) {
+        public ProductListViewHolder(@NonNull View itemView, final OnItemClickListener itemClickListener) {
             super(itemView);
             productImage = itemView.findViewById(R.id.product_image);
             productTitle = itemView.findViewById(R.id.product_title);
             productPrice = itemView.findViewById(R.id.product_price);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemClickListener.onItemClick(products.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }

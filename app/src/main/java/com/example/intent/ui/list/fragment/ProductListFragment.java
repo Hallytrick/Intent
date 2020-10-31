@@ -17,14 +17,16 @@ import android.widget.Toast;
 import com.example.intent.R;
 import com.example.intent.adapters.ProductListAdapter;
 import com.example.intent.model.Product;
+import com.example.intent.ui.list.ProductActivity;
 import com.example.intent.ui.list.ProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductListFragment extends Fragment {
+public class ProductListFragment extends Fragment implements ProductListAdapter.OnItemClickListener {
 
     public static final String EXTRA_PRODUCT_CATEGORY = "EXTRA_PRODUCT_CATEGORY";
+    private ProductViewModel viewModel;
 
     public ProductListFragment() {
         // Required empty public constructor
@@ -45,12 +47,19 @@ public class ProductListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ProductViewModel viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
         List<Product> products = viewModel.getProductsList();
         RecyclerView productList = view.findViewById(R.id.rv_procucts);
         ProductListAdapter adapter = new ProductListAdapter(requireContext(), products);
+        adapter.setOnItemClickListener(this);
         productList.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         productList.setHasFixedSize(true);
         productList.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(Product product) {
+        viewModel.setProduct(product);
+        ((ProductActivity)requireActivity()).inflateProductDetailsFragment();
     }
 }

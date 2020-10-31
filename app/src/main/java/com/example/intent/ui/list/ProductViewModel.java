@@ -29,4 +29,5 @@ public class ProductViewModel extends ViewModel {
         Product[] product = products.PRODUCT_MAP.get(category);
         return Arrays.asList(product);
     }
+
 }

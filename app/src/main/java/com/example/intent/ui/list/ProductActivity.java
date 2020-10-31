@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.example.intent.R;
 import com.example.intent.model.Product;
+import com.example.intent.ui.list.fragment.ProductDetailsFragment;
 import com.example.intent.ui.list.fragment.ProductListFragment;
 
 public class ProductActivity extends AppCompatActivity {
@@ -38,6 +39,14 @@ public class ProductActivity extends AppCompatActivity {
         ProductListFragment fragment = new ProductListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment, "productListFragment");
+        transaction.commit();
+    }
+
+    public void inflateProductDetailsFragment(){
+        ProductDetailsFragment fragment = new ProductDetailsFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment, "productDetailsFragment");
+        transaction.addToBackStack("productDetailsFragment");
         transaction.commit();
     }
 }
