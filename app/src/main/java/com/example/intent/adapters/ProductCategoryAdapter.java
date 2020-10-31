@@ -15,16 +15,25 @@ import java.util.List;
 
 public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.ProductCategoryViewHolder> {
     private List<String> categoryName = new ArrayList<>();
+    public OnItemClickListener onItemClickListener;
 
     public ProductCategoryAdapter(List<String> categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 
     @NonNull
     @Override
     public ProductCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-        return new ProductCategoryViewHolder(view);
+        return new ProductCategoryViewHolder(view, onItemClickListener);
     }
 
     @Override
@@ -39,9 +48,18 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
 
     static class ProductCategoryViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCategoryName;
-        public ProductCategoryViewHolder(@NonNull View itemView) {
+        private OnItemClickListener onItemClickListener;
+        public ProductCategoryViewHolder(@NonNull View itemView, final OnItemClickListener onItemClickListener) {
             super(itemView);
             tvCategoryName = itemView.findViewById(R.id.category_name);
+            this.onItemClickListener = onItemClickListener;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 }
